@@ -16,6 +16,8 @@ function Game() {
   addListenerToCheckButton();
   // make the first row active
   addListenersToRow(activeRow);
+  // add listener to modal button
+  addListenerToModalButton();
 
   //class methods
   this.getNumberOfRows = function() {
@@ -127,7 +129,16 @@ function addListenerToCheckButton() {
   document.querySelector(".check-btn").addEventListener("click", handleCheckButton);
 }
 
+function addListenerToModalButton() {
+  document.querySelector(".modal-button").addEventListener("click", reloadPage);
+}
+
 // functions called by listeners
+
+function reloadPage() {
+  Location.reload();
+  return false;
+}
 
 function makeHoleActive(event) {
   // if user clicks a hole that is already active then do nothing
@@ -202,12 +213,23 @@ function handleCheckButton() {
       document.querySelectorAll(".row")[1].querySelectorAll(".hole")[i].innerHTML =
         document.querySelectorAll(".row")[activeRow].querySelectorAll(".hole")[i].innerHTML;
     }
-    alert("Je hebt gewonnen. Gefeliciteerd!");
+    document.querySelector(".modal-text").innerHTML = "You won!";
+    $('#myModal').modal({
+      backdrop: false
+    });
     // else if was last row
   } else {
     if (game.isLastRow()) {
       //   game over
-      alert("game over");
+      //show solution: copy innerHTML van activeRow
+      for (let i = 0; i < 4; i++) {
+        document.querySelectorAll(".row")[1].querySelectorAll(".hole")[i].innerHTML =
+          document.querySelectorAll(".row")[activeRow].querySelectorAll(".hole")[i].innerHTML;
+      }
+      document.querySelector(".modal-text").innerHTML = "Game over!";
+      $('#myModal').modal({
+        backdrop: false
+      });
     } else {
       //   make next row active
       let nextRow = game.makeNextRowActive();

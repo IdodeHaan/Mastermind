@@ -1,3 +1,7 @@
+.btn {
+  margin-top: 8px;
+  margin-left: 17px;
+}
 .button-img {
   width: 27px;
   height: 27px;
@@ -6,29 +10,35 @@
   padding: 5px;
   margin-top: 5px;
 }
+.color-button-row {
+  vertical-align: middle;
+}
 .edge {
   height: 30px;
 }
 .filler-img {
-  width: 15px;
+  width: 13px;
 }
 .fillrow {
-  height: 15px;
+  height: 13px;
 }
 .fillrow.filler {
-  height: 15px;
-  width: 15px;
+  height: 13px;
+  width: 13px;
 }
 .hole {
   display: inline-block;
+}
+.modal-body {
+  text-align: center;
 }
 .row {
   padding-left: 15%;
   /* padding-right: 10%; */
 }
 img {
-  width: 45px;
-  height: 45px;
+  width: 42px;
+  height: 42px;
 
 }
 body {
