@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <!-- CSS stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- JavaScript -->
+  <script src="index.js" charset="utf-8" defer></script>
+
+  <title>Mastermind</title>
+</head>
+
+<body>
+  <div class="board">
+    <div class="row">
+      <div><img class="edge" src="images/cornerLeftUp2.png" alt=""></div>
+      <div><img class="edge filler-img" src="images/filler.png" alt=""></div>
+      <div><img class="edge" src="images/edge.png" alt=""></div>
+      <div><img class="edge" src="images/edge.png" alt=""></div>
+      <div><img class="edge" src="images/edge.png" alt=""></div>
+      <div><img class="edge" src="images/cornerRightUp2.png" alt=""></div>
+    </div>
+    <div class="row">
+      <div class=""><img src="images/edge.png" alt=""></div>
+      <div class="filler"><img class="filler-img" src="images/filler.png" alt=""></div>
+      <div class="hole"><img src="images/hideSolution.png" alt=""></div>
+      <div class="hole"><img src="images/hideSolution.png" alt=""></div>
+      <div class="hole"><img src="images/hideSolution.png" alt=""></div>
+      <div class="hole"><img src="images/hideSolution.png" alt=""></div>
+    </div>
+
+    <div class="row">
+      <div class="fillrow"><img src="images/edge.png" alt=""></div>
+      <div class="filler fillrow"><img class="filler-img" src="images/filler.png" alt=""></div>
+      <div class="fillrow"><img src="images/edge.png" alt=""></div>
+      <div class="fillrow"><img src="images/edge.png" alt=""></div>
+      <div class="fillrow"><img src="images/edge.png" alt=""></div>
+      <div class="fillrow"><img src="images/edge.png" alt=""></div>
+    </div>
+
+    <div class="row">
+      <div class="feedback"><img src="images/0white0black.png" alt=""></div>
+      <div class="filler"><img class="filler-img" src="images/filler.png" alt=""></div>
+      <div class="hole"><img src="images/emptyPin.png" alt=""></div>
+      <div class="hole"><img src="images/emptyPin.png" alt=""></div>
+      <div class="hole"><img src="images/emptyPin.png" alt=""></div>
+      <div class="hole"><img src="images/emptyPin.png" alt=""></div>
+    </div>
+    <div class="row">
+      <div class="feedback"><img src="images/0white0black.png" alt=""></div>
+      <div value="filler"><img class="filler-img" src="images/filler.png" alt=""></div>
+      <div class="hole"><img src="images/emptyPin.png" alt=""></div>
+      <div class="hole"><img src="images/emptyPin.png" alt=""></div>
+      <div class="hole"><img src="images/emptyPin.png" alt=""></div>
+      <div class="hole"><img src="images/emptyPin.png" alt=""></div>
+    </div>
+    <div class="row">
+      <div class="feedback"><img src="images/0white0black.png" alt=""></div>
+      <div class="filler"><img class="filler-img" src="images/filler.png" alt=""></div>
+      <div class="hole"><img src="images/emptyPin.png" alt=""></div>
+      <div class="hole"><img src="images/emptyPin.png" alt=""></div>
+      <div class="hole"><img src="images/emptyPin.png" alt=""></div>
+      <div class="hole"><img src="images/emptyPin.png" alt=""></div>
+    </div>
+    <div class="row">
+      <div class="feedback"><img src="images/0white0black.png" alt=""></div>
+      <div value="filler"><img class="filler-img" src="images/filler.png" alt=""></div>
+      <div class="hole"><img src="images/emptyPin.png" alt=""></div>
+      <div class="hole"><img src="images/emptyPin.png" alt=""></div>
+      <div class="hole"><img src="images/emptyPin.png" alt=""></div>
+      <div class="hole"><img src="images/emptyPin.png" alt=""></div>
+    </div>
+    <div class="row">
+      <div class="feedback"><img src="images/0white0black.png" alt=""></div>
+      <div class="filler"><img class="filler-img" src="images/filler.png" alt=""></div>
+      <div class="hole"><img src="images/emptyPin.png" alt=""></div>
+      <div class="hole"><img src="images/emptyPin.png" alt=""></div>
+      <div class="hole"><img src="images/emptyPin.png" alt=""></div>
+      <div class="hole"><img src="images/emptyPin.png" alt=""></div>
+    </div>
+    <div class="row">
+      <div class="feedback"><img src="images/0white0black.png" alt=""></div>
+      <div value="filler"><img class="filler-img" src="images/filler.png" alt=""></div>
+      <div class="hole"><img src="images/emptyPin.png" alt=""></div>
+      <div class="hole"><img src="images/emptyPin.png" alt=""></div>
+      <div class="hole"><img src="images/emptyPin.png" alt=""></div>
+      <div class="hole"><img src="images/emptyPin.png" alt=""></div>
+    </div>
+    <div class="row">
+      <div class="feedback"><img src="images/0white0black.png" alt=""></div>
+      <div class="filler"><img class="filler-img" src="images/filler.png" alt=""></div>
+      <div class="hole"><img src="images/emptyPin.png" alt=""></div>
+      <div class="hole"><img src="images/emptyPin.png" alt=""></div>
+      <div class="hole"><img src="images/emptyPin.png" alt=""></div>
+      <div class="hole"><img src="images/emptyPin.png" alt=""></div>
+    </div>
+    <div class="row">
+      <div class="feedback"><img src="images/0white0black.png" alt=""></div>
+      <div value="filler"><img class="filler-img" src="images/filler.png" alt=""></div>
+      <div class="hole"><img src="images/emptyPin.png" alt=""></div>
+      <div class="hole"><img src="images/emptyPin.png" alt=""></div>
+      <div class="hole"><img src="images/emptyPin.png" alt=""></div>
+      <div class="hole"><img src="images/emptyPin.png" alt=""></div>
+    </div>
+
+    <div class="row">
+      <div class="feedback"><img src="images/0white0black.png" alt=""></div>
+      <div class="filler"><img class="filler-img" src="images/filler.png" alt=""></div>
+      <div class="hole"><img src="images/emptyPin.png" alt=""></div>
+      <div class="hole"><img src="images/emptyPin.png" alt=""></div>
+      <div class="hole"><img src="images/emptyPin.png" alt=""></div>
+      <div class="hole"><img src="images/emptyPin.png" alt=""></div>
+    </div>
+    <div class="row">
+      <div class="feedback"><img src="images/0white0black.png" alt=""></div>
+      <div value="filler"><img class="filler-img" src="images/filler.png" alt=""></div>
+      <div class="hole"><img src="images/emptyPinSelected.png" alt=""></div>
+      <div class="hole"><img src="images/emptyPin.png" alt=""></div>
+      <div class="hole"><img src="images/emptyPin.png" alt=""></div>
+      <div class="hole"><img src="images/emptyPin.png" alt=""></div>
+    </div>
+    <div class="row">
+      <div><img class="edge" src="images/cornerLeftUnder2.png" alt=""></div>
+      <div><img class="edge filler-img" src="images/filler.png" alt=""></div>
+      <div><img class="edge" src="images/edge.png" alt=""></div>
+      <div><img class="edge" src="images/edge.png" alt=""></div>
+      <div><img class="edge" src="images/edge.png" alt=""></div>
+      <div><img class="edge" src="images/cornerRightUnder2.png" alt=""></div>
+    </div>
+    <div class="row">
+      <div class="color-btn"><img class="button-img" src="images/buttonBlue.png" alt=""></div>
+      <div class="color-btn"><img class="button-img" src="images/buttonYellow.png" alt=""></div>
+      <div class="color-btn"><img class="button-img" src="images/buttonWhite.png" alt=""></div>
+      <div class="color-btn"><img class="button-img" src="images/buttonRed.png" alt=""></div>
+      <div class="color-btn"><img class="button-img" src="images/buttonBlack.png" alt=""></div>
+      <div class="color-btn"><img class="button-img" src="images/buttonGreen.png" alt=""></div>
+      <div class="check-btn"><button type="button" name="button">Check</button></div>
+    </div>
+  </div>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+
+</html>

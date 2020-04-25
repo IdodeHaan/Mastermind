@@ -1,0 +1,37 @@
+.button-img {
+  width: 27px;
+  height: 27px;
+}
+.color-btn {
+  padding: 5px;
+  margin-top: 5px;
+}
+.edge {
+  height: 30px;
+}
+.filler-img {
+  width: 15px;
+}
+.fillrow {
+  height: 15px;
+}
+.fillrow.filler {
+  height: 15px;
+  width: 15px;
+}
+.hole {
+  display: inline-block;
+}
+.row {
+  padding-left: 15%;
+  /* padding-right: 10%; */
+}
+img {
+  width: 45px;
+  height: 45px;
+
+}
+body {
+  padding-top: 20px;
+  background-color: grey;
+}
