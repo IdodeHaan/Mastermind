@@ -157,7 +157,7 @@ function makeHoleActive(event) {
 
 function handleColorbutton(event) {
   let buttonTag = event.target.outerHTML;
-  let pinColor = buttonTag.split("/button")[1].split(".")[0];
+  let pinColor = buttonTag.split("/button")[1].split(".")[0].toLowerCase();
   let activeRow = game.getActiveRow();
   let activeHole = game.getActiveHole();
   // fill hole with colored pin and make current field inactive
