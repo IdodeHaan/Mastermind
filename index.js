@@ -1,3 +1,6 @@
+// create instance of Game
+var game = new Game();
+
 // object definitions
 
 function Game() {
@@ -40,6 +43,34 @@ function Game() {
   }
   this.checkSolution = function(rowColors) {
     return solution.checkSolution(rowColors);
+  }
+  this.showSolution = function () {
+    solution.showSolution();
+  }
+  this.startNewGame = function () {
+    // initialize board:
+    // remove listeners from active row
+    removeListenersFromRow(activeRow);
+    // hide solution
+    for (let i = 0; i < 4; i++) {
+      document.querySelectorAll(".row")[1].querySelectorAll(".hole")[i].innerHTML = '<img src="images/hideSolution.png" alt="">';
+    }
+    // initialize feedback and holes for the rows that were used in last game
+    for (let j = activeRow; j <= numberOfRows; j++) {
+      let row = document.querySelectorAll(".row")[j];
+      row.querySelector(".feedback").innerHTML = '<img src="images/0white0black.png" alt="">';
+      for (let k = 0; k < 4; k++) {
+        row.querySelectorAll(".hole")[k].innerHTML = '<img src="images/emptyPin.png" alt="">';
+      }
+    }
+    // make first row active
+    activeRow = numberOfRows;
+    addListenersToRow(activeRow);
+    // set first hole active
+    activeHole = 0;
+    document.querySelectorAll(".row")[activeRow].querySelectorAll(".hole")[0].innerHTML = '<img src="images/emptyPinSelected.png" alt="">';
+    // make new solution
+    solution = new Solution(doubleColors, emptySpaces);
   }
 }
 
@@ -103,6 +134,13 @@ function Solution(doubleColorsAllowed, emptySpacesAllowed) {
     }
     return [numberOfBlackPins, numberOfWhitePins];
   }
+  this.showSolution = function () {
+    let imageText = "";
+    for (let i = 0; i < 4; i++) {
+        imageText = '<img src="images/' + colors[i] + 'Pin.png" alt="">'
+        document.querySelectorAll(".row")[1].querySelectorAll(".hole")[i].innerHTML = imageText;
+    }
+  }
 }
 
 // listener section
@@ -130,7 +168,9 @@ function addListenerToCheckButton() {
 }
 
 function addListenerToModalButton() {
-  document.querySelector(".modal-button").addEventListener("click", reloadPage);
+  document.querySelector(".modal-button").addEventListener("click", function () {
+    game.startNewGame();
+  });
 }
 
 // functions called by listeners
@@ -208,12 +248,10 @@ function handleCheckButton() {
   document.querySelectorAll(".feedback")[activeRow - 3].innerHTML = changedText;
   // if input matches Solution
   if (numberOfBlackPins === 4) {
-    //show solution: copy innerHTML van activeRow
-    for (let i = 0; i < 4; i++) {
-      document.querySelectorAll(".row")[1].querySelectorAll(".hole")[i].innerHTML =
-        document.querySelectorAll(".row")[activeRow].querySelectorAll(".hole")[i].innerHTML;
-    }
-    document.querySelector(".modal-text").innerHTML = "You won!";
+    //show solution
+    game.showSolution();
+    // show popup
+    document.querySelector(".modal-text").innerHTML = "🏆 You won!";
     $('#myModal').modal({
       backdrop: false
     });
@@ -221,12 +259,10 @@ function handleCheckButton() {
   } else {
     if (game.isLastRow()) {
       //   game over
-      //show solution: copy innerHTML van activeRow
-      for (let i = 0; i < 4; i++) {
-        document.querySelectorAll(".row")[1].querySelectorAll(".hole")[i].innerHTML =
-          document.querySelectorAll(".row")[activeRow].querySelectorAll(".hole")[i].innerHTML;
-      }
-      document.querySelector(".modal-text").innerHTML = "Game over!";
+      //show solution
+      game.showSolution();
+      // show popup
+      document.querySelector(".modal-text").innerHTML = "😩 Game over!";
       $('#myModal').modal({
         backdrop: false
       });
@@ -250,5 +286,3 @@ function getColorsFromRow() {
   }
   return rowColors;
 }
-// create instance of Game
-let game = new Game();

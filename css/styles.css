@@ -32,6 +32,10 @@
 .modal-body {
   text-align: center;
 }
+.modal-text {
+  font-family: 'Merienda', cursive;
+  font-size: 35px;
+}
 .row {
   padding-left: 15%;
   /* padding-right: 10%; */
