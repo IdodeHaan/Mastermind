@@ -27,6 +27,9 @@
       <div><img class="edge" src="images/edge.png" alt=""></div>
       <div><img class="edge" src="images/edge.png" alt=""></div>
       <div><img class="edge" src="images/cornerRightUp2.png" alt=""></div>
+      <div class="settings-div">
+        <input type="image" src="images/settings.png" name="saveForm" class="settings" data-toggle="modal" data-target="#settingsModal" />
+      </div>
     </div>
     <div class="row">
       <div class=""><img src="images/edge.png" alt=""></div>
@@ -144,24 +147,50 @@
       <div class="color-btn"><img class="button-img" src="images/buttonGreen.png" alt=""></div>
       <div class="check-btn"><button type="button" class="btn btn-outline-light btn-sm" name="button">Check</button></div>
     </div>
+    <div class="row empty-button-row">
+      <div class="empty-btn"><img class="button-img empty-img" src="images/buttonEmpty.png" alt=""></div>
+      <p class="empty-text">(empty)</p>
+    </div>
   </div>
 
-  <!-- Modal -->
+  <!-- Modal - won or lost -->
   <div id="myModal" class="modal modal-sm" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
-        <!-- <div class="modal-header">
-          <h5 class="modal-title">Gefeliciteerd!</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div> -->
         <div class="modal-body">
           <p class="modal-text">You won!</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="modal-button btn btn-primary" data-dismiss="modal">OK</button>
-          <!-- <button type="button" class="btn btn-primary">No</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal - settings -->
+  <div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Settings</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body settings-body">
+          <div class="">
+            <p>empty spaces in solution</p>
+          </div>
+          <div class="">
+            <label class="switch">
+              <input class="empty-spaces-checkbox" type="checkbox" value="empty-spaces">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary save-settings-button" data-dismiss="modal">Save</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
         </div>
       </div>
     </div>

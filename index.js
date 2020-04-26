@@ -7,7 +7,7 @@ function Game() {
   // variables with initial value
   let numberOfRows = 12;
   let doubleColors = false;
-  let emptySpaces = false;
+  let emptySpaces = true;
   let solution = new Solution(doubleColors, emptySpaces);
   let activeRow = 12; // first row is 12, last row is 3
   let activeHole = 0; //first hole in a row is 0, last is determined by player
@@ -21,6 +21,8 @@ function Game() {
   addListenersToRow(activeRow);
   // add listener to modal button
   addListenerToModalButton();
+  // add listener to save settings buttons
+  addListenerToSaveSettingsButton();
 
   //class methods
   this.getNumberOfRows = function() {
@@ -38,10 +40,22 @@ function Game() {
   this.isLastRow = function() {
     return (activeRow === lastRow);
   }
+  this.makeActiveHoleInactive = function () {
+    let imageTagActive = document.querySelectorAll(".row")[activeRow].querySelectorAll(".hole")[activeHole].innerHTML;
+    let imageTagInactive = imageTagActive.replace('Selected', '');
+    document.querySelectorAll(".row")[activeRow].querySelectorAll(".hole")[activeHole].innerHTML = imageTagInactive;
+  }
   this.makeNextRowActive = function() {
     return --activeRow;
   }
-  this.checkSolution = function(rowColors) {
+  this.checkSolution = function() {
+    // first get the colors from the active row
+    let rowColors = [];
+    let row = document.querySelectorAll(".row")[activeRow].querySelectorAll(".hole");
+    for (let i = 0; i < row.length; i++) {
+      rowColors[i] = row[i].innerHTML.split("Pin")[0].split("/")[1].toLowerCase();
+    }
+    // check of the filled colors are correct
     return solution.checkSolution(rowColors);
   }
   this.showSolution = function () {
@@ -52,9 +66,7 @@ function Game() {
     // remove listeners from active row
     removeListenersFromRow(activeRow);
     // hide solution
-    for (let i = 0; i < 4; i++) {
-      document.querySelectorAll(".row")[1].querySelectorAll(".hole")[i].innerHTML = '<img src="images/hideSolution.png" alt="">';
-    }
+    solution.hideSolution();
     // initialize feedback and holes for the rows that were used in last game
     for (let j = activeRow; j <= numberOfRows; j++) {
       let row = document.querySelectorAll(".row")[j];
@@ -71,6 +83,11 @@ function Game() {
     document.querySelectorAll(".row")[activeRow].querySelectorAll(".hole")[0].innerHTML = '<img src="images/emptyPinSelected.png" alt="">';
     // make new solution
     solution = new Solution(doubleColors, emptySpaces);
+  }
+  this.saveSettings = function () {
+    // emptySpaces = false;
+    emptySpaces = document.querySelector(".empty-spaces-checkbox").checked;
+    this.startNewGame();
   }
 }
 
@@ -141,6 +158,11 @@ function Solution(doubleColorsAllowed, emptySpacesAllowed) {
         document.querySelectorAll(".row")[1].querySelectorAll(".hole")[i].innerHTML = imageText;
     }
   }
+  this.hideSolution = function () {
+    for (let i = 0; i < 4; i++) {
+      document.querySelectorAll(".row")[1].querySelectorAll(".hole")[i].innerHTML = '<img src="images/hideSolution.png" alt="">';
+    }
+  }
 }
 
 // listener section
@@ -161,6 +183,7 @@ function addListenersToColorButtons() {
   for (let i = 0; i < document.querySelectorAll(".color-btn").length; i++) {
     document.querySelectorAll(".color-btn")[i].addEventListener("click", handleColorbutton);
   }
+  document.querySelector(".empty-btn").addEventListener("click", handleColorbutton);
 }
 
 function addListenerToCheckButton() {
@@ -173,12 +196,13 @@ function addListenerToModalButton() {
   });
 }
 
-// functions called by listeners
-
-function reloadPage() {
-  Location.reload();
-  return false;
+function addListenerToSaveSettingsButton() {
+  document.querySelector(".save-settings-button").addEventListener("click", function () {
+    game.saveSettings();
+  });
 }
+
+// functions called by listeners
 
 function makeHoleActive(event) {
   // if user clicks a hole that is already active then do nothing
@@ -186,10 +210,8 @@ function makeHoleActive(event) {
     // so user clicked an inactive hole
     let activeRow = game.getActiveRow();
     let activeHole = game.getActiveHole();
-    // make current field inactive
-    let imageTagActive = document.querySelectorAll(".row")[activeRow].querySelectorAll(".hole")[activeHole].innerHTML;
-    let imageTagInactive = imageTagActive.replace('Selected', '');
-    document.querySelectorAll(".row")[activeRow].querySelectorAll(".hole")[activeHole].innerHTML = imageTagInactive;
+    // make active hole inactive
+    game.makeActiveHoleInactive();
     // make the clicked hole active
     event.target.outerHTML = event.target.outerHTML.replace("Pin", "PinSelected");
     // first determine at which position the clicked hole is
@@ -231,18 +253,13 @@ function handleCheckButton() {
   let activeHole = game.getActiveHole();
   removeListenersFromRow(activeRow);
   // make active hole inactive
-  let imageTagActive = document.querySelectorAll(".row")[activeRow].querySelectorAll(".hole")[activeHole].innerHTML;
-  let imageTagInactive = imageTagActive.replace('Selected', '');
-  document.querySelectorAll(".row")[activeRow].querySelectorAll(".hole")[activeHole].innerHTML = imageTagInactive;
-  // get colors from row to check
-  let rowColors = getColorsFromRow();
+  game.makeActiveHoleInactive();
   // check solution and get feedback
-  let feedback = game.checkSolution(rowColors);
+  let feedback = game.checkSolution();
   let numberOfBlackPins = feedback[0];
   let numberOfWhitePins = feedback[1];
   // show feedback
   let feedbackText = numberOfWhitePins + "white" + numberOfBlackPins + "black";
-  // document.querySelectorAll(".feedback")[activeRow - 3].innerHTML.replace("0white0black", feedbackText);
   let currentText = document.querySelectorAll(".feedback")[activeRow - 3].innerHTML;
   let changedText = currentText.replace("0white0black", feedbackText);
   document.querySelectorAll(".feedback")[activeRow - 3].innerHTML = changedText;
@@ -251,10 +268,7 @@ function handleCheckButton() {
     //show solution
     game.showSolution();
     // show popup
-    document.querySelector(".modal-text").innerHTML = "🏆 You won!";
-    $('#myModal').modal({
-      backdrop: false
-    });
+    showModal(numberOfBlackPins === 4);
     // else if was last row
   } else {
     if (game.isLastRow()) {
@@ -262,10 +276,7 @@ function handleCheckButton() {
       //show solution
       game.showSolution();
       // show popup
-      document.querySelector(".modal-text").innerHTML = "😩 Game over!";
-      $('#myModal').modal({
-        backdrop: false
-      });
+      showModal(numberOfBlackPins === 4);
     } else {
       //   make next row active
       let nextRow = game.makeNextRowActive();
@@ -277,12 +288,15 @@ function handleCheckButton() {
   }
 }
 
-function getColorsFromRow() {
-  let rowColors = [];
-  let rowNumber = game.getActiveRow();
-  let row = document.querySelectorAll(".row")[rowNumber].querySelectorAll(".hole");
-  for (let i = 0; i < row.length; i++) {
-    rowColors[i] = row[i].innerHTML.split("Pin")[0].split("/")[1].toLowerCase();
+function showModal (userWon) {
+  let modalText = "";
+  if (userWon) {
+    modalText = "🏆 You won!";
+  } else {
+    modalText = "😩 Game over!";
   }
-  return rowColors;
+  document.querySelector(".modal-text").innerHTML = modalText;
+  $('#myModal').modal({
+    backdrop: false
+  });
 }
