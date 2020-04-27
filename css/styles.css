@@ -24,9 +24,6 @@ img {
 .edge {
   height: 30px;
 }
-/* .empty-button {
-  margin-left: 3px;
-} */
 .empty-button-row {
   text-align: center;
   color: #fff;
@@ -47,6 +44,9 @@ img {
 .fillrow.filler {
   height: 13px;
   width: 13px;
+}
+.hidden {
+  display: none;
 }
 .hole {
   display: inline-block;
@@ -73,6 +73,7 @@ img {
   padding-left: 60px;
 }
 
+/* all styles below are needed for the slider elements on the settings modal */
 /* The switch - the box around the slider */
 .switch {
   position: relative;

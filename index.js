@@ -85,8 +85,18 @@ function Game() {
     solution = new Solution(doubleColors, emptySpaces);
   }
   this.saveSettings = function () {
-    // emptySpaces = false;
-    emptySpaces = document.querySelector(".empty-spaces-checkbox").checked;
+    // save empty spaces setting
+    if (document.querySelector(".empty-spaces-checkbox").checked) {
+      emptySpaces = true;
+      // show the empty space button
+      document.querySelector(".empty-button-row").classList.remove("hidden");
+    } else {
+      emptySpaces = false;
+      // hide the empty space button
+      document.querySelector(".empty-button-row").classList.add("hidden");
+    }
+    // save double colors setting
+    doubleColors = document.querySelector(".double-colors-checkbox").checked;
     this.startNewGame();
   }
 }
