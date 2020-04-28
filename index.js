@@ -11,6 +11,7 @@ function Game() {
   let solution = new Solution(doubleColors, emptySpaces);
   let activeRow = 12; // first row is 12, last row is 3
   let activeHole = 0; //first hole in a row is 0, last is determined by player
+  let firstRow = 12;
   let lastRow = 3;
 
   // add listeners to color buttons
@@ -38,7 +39,7 @@ function Game() {
     activeHole = newActiveHole;
   }
   this.isLastRow = function() {
-    return (activeRow === lastRow);
+    return (activeRow === (firstRow - numberOfRows + 1));
   }
   this.makeActiveHoleInactive = function () {
     let imageTagActive = document.querySelectorAll(".row")[activeRow].querySelectorAll(".hole")[activeHole].innerHTML;
@@ -68,19 +69,28 @@ function Game() {
     // hide solution
     solution.hideSolution();
     // initialize feedback and holes for the rows that were used in last game
-    for (let j = activeRow; j <= numberOfRows; j++) {
+    for (let j = activeRow; j <= firstRow; j++) {
       let row = document.querySelectorAll(".row")[j];
       row.querySelector(".feedback").innerHTML = '<img src="images/0white0black.png" alt="">';
       for (let k = 0; k < 4; k++) {
         row.querySelectorAll(".hole")[k].innerHTML = '<img src="images/emptyPin.png" alt="">';
       }
     }
+    // hide all rows that will not be used
+    for (let a = lastRow; a < (firstRow - numberOfRows +  1); a++) {
+        // document.querySelectorAll(".row")[a].querySelectorAll(".hole")[b].innerHTML = '<img src="images/hideHole.png" alt="">';
+      document.querySelectorAll(".row")[a].classList.add("hidden");
+    }
+    // show all rows that will be used
+    for (let b = (firstRow - numberOfRows + 1); b <= firstRow; b++) {
+      document.querySelectorAll(".row")[b].classList.remove("hidden");
+    }
     // make first row active
-    activeRow = numberOfRows;
-    addListenersToRow(activeRow);
+    activeRow = firstRow;
+    addListenersToRow(firstRow);
     // set first hole active
     activeHole = 0;
-    document.querySelectorAll(".row")[activeRow].querySelectorAll(".hole")[0].innerHTML = '<img src="images/emptyPinSelected.png" alt="">';
+    document.querySelectorAll(".row")[firstRow].querySelectorAll(".hole")[0].innerHTML = '<img src="images/emptyPinSelected.png" alt="">';
     // make new solution
     solution = new Solution(doubleColors, emptySpaces);
   }
@@ -97,6 +107,14 @@ function Game() {
     }
     // save double colors setting
     doubleColors = document.querySelector(".double-colors-checkbox").checked;
+    // process new number of rows settings
+    // let dropdown = document.querySelector("#dropdownMenuButton");
+    // let dropdownmenu = document.querySelector(".dropdown-menu");
+    let newNumber = parseInt(document.querySelector("#rows-datalist").value);
+    if (!isNaN(newNumber)) {
+      numberOfRows = newNumber;
+    }
+    // start new game after saving all setting
     this.startNewGame();
   }
 }
@@ -170,7 +188,7 @@ function Solution(doubleColorsAllowed, emptySpacesAllowed) {
   }
   this.hideSolution = function () {
     for (let i = 0; i < 4; i++) {
-      document.querySelectorAll(".row")[1].querySelectorAll(".hole")[i].innerHTML = '<img src="images/hideSolution.png" alt="">';
+      document.querySelectorAll(".row")[1].querySelectorAll(".hole")[i].innerHTML = '<img src="images/hideHole.png" alt="">';
     }
   }
 }

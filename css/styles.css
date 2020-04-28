@@ -61,6 +61,9 @@ img {
 .row {
   padding-left: 15%;
 }
+#rows-datalist {
+  width: 53px;
+}
 .settings {
   height: 24px;
   width: 24px;
