@@ -5,9 +5,9 @@ var game = new Game();
 
 function Game() {
   // variables with initial value
-  let numberOfRows = 12;
+  let numberOfRows = 10;
   let doubleColors = false;
-  let emptySpaces = true;
+  let emptySpaces = false;
   let solution = new Solution(doubleColors, emptySpaces);
   let activeRow = 12; // first row is 12, last row is 3
   let activeHole = 0; //first hole in a row is 0, last is determined by player
@@ -78,7 +78,6 @@ function Game() {
     }
     // hide all rows that will not be used
     for (let a = lastRow; a < (firstRow - numberOfRows +  1); a++) {
-        // document.querySelectorAll(".row")[a].querySelectorAll(".hole")[b].innerHTML = '<img src="images/hideHole.png" alt="">';
       document.querySelectorAll(".row")[a].classList.add("hidden");
     }
     // show all rows that will be used
@@ -108,8 +107,6 @@ function Game() {
     // save double colors setting
     doubleColors = document.querySelector(".double-colors-checkbox").checked;
     // process new number of rows settings
-    // let dropdown = document.querySelector("#dropdownMenuButton");
-    // let dropdownmenu = document.querySelector(".dropdown-menu");
     let newNumber = parseInt(document.querySelector("#rows-datalist").value);
     if (!isNaN(newNumber)) {
       numberOfRows = newNumber;
